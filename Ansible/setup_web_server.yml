@@ -1,0 +1,23 @@
+- name: Set Up Web Server
+  hosts: your_ec2_instance
+  become: true
+
+  tasks:
+    - name: Install Apache Web Server
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start and Enable Apache Service
+      systemd:
+        name: httpd
+        enabled: yes
+        state: started
+
+    - name: Create Default Web Page
+      copy:
+        content: "<html><body><h1>Welcome to My Website</h1></body></html>"
+        dest: /var/www/html/index.html
+        owner: apache
+        group: apache
+        mode: "0644"

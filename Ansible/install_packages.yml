@@ -1,0 +1,12 @@
+- name: Install Necessary Packages
+  hosts: your_ec2_instance
+  become: true
+
+  tasks:
+    - name: Install Packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - package1
+        - package2

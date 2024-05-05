@@ -1,0 +1,14 @@
+- name: Configure Users
+  hosts: your_ec2_instance
+  become: true
+
+  tasks:
+    - name: Configure Users
+      user:
+        name: "{{ item.name }}"
+        state: present
+        groups: "{{ item.groups }}"
+        password: "{{ item.password | password_hash('sha512') }}"
+      loop:
+        - { name: user1, groups: wheel, password: password1 }
+        - { name: user2, groups: users, password: password2 }
